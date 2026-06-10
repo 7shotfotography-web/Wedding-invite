@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation | Vignesh & Saranya</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL PALETTE & VARIABLES --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fdfbf7 0%, #f5eedc 100%);
+            --card-bg: #ffffff;
+            --gold-accent: #b5945b;
+            --gold-dark: #967844;
+            --text-dark: #2c2c2c;
+            --text-light: #666666;
+            --font-script: 'Alex Brush', cursive;
+            --font-serif: 'Cormorant Garamond', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: var(--font-serif);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+
+        /* --- MULTI-PAGE CONTAINER --- */
+        .invitation-container {
+            background: var(--card-bg);
+            max-width: 500px;
+            width: 100%;
+            min-height: 650px;
+            padding: 40px 25px;
+            position: relative;
+            border: 1px solid rgba(181, 148, 91, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Classic inner frame decorative line */
+        .invitation-container::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            border: 1px solid var(--gold-accent);
+            pointer-events: none;
+            opacity: 0.4;
+            border-radius: 2px;
+        }
+
+        /* --- PAGE MANAGEMENT (Hidden by default, active is shown) --- */
+        .invitation-page {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.6s ease-in-out forwards;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .invitation-page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- COMPONENT STYLES --- */
+        .god-img {
+            width: 130px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0px 4px 8px rgba(181, 148, 91, 0.3));
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold-accent);
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Typography */
+        .welcome-title {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .main-names {
+            font-family: var(--font-script);
+            font-size: 3.8rem;
+            color: var(--gold-accent);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .page-heading {
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .sub-heading {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            margin: 15px 0 5px 0;
+        }
+
+        .details-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold-accent);
+            margin: 15px auto;
+        }
+
+        /* Specific styles for Venue and Dates */
+        .hall-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 10px;
+        }
+
+        .event-box {
+            background: #faf7f0;
+            padding: 15px;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--gold-accent);
+        }
+
+        /* --- BUTTONS & CONTROLS --- */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+            z-index: 10; /* Keeps interactive elements above borders */
+        }
+
+        .nav-btn {
+            background-color: var(--gold-accent);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--gold-dark);
+        }
+
+        .nav-btn.secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid #ccc;
+        }
+
+        .nav-btn.secondary:hover {
+            background-color: #f5f5f5;
+            color: var(--text-dark);
+        }
+
+        /* Outer anchor styling for Google maps map action */
+        .map-link-btn {
+            display: inline-block;
+            background-color: #2c2c2c;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 25px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+        
+        .map-link-btn:hover {
+            background-color: var(--gold-dark);
+        }
+
+        /* --- PAGE COUNTER --- */
+        .page-number {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            margin-bottom: -15px;
+            z-index: 5;
+        }
+
+        /* Responsive UI tweaks */
+        @media(max-width: 400px) {
+            .invitation-container {
+                min-height: 580px;
+                padding: 35px 20px;
+            }
+            .main-names { font-size: 3.2rem; }
+            .page-heading { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        
+        <!-- PAGE 1: WELCOME -->
+        <div class="invitation-page active" id="page-1">
+            <!-- Replace with an image URL of Lord Ganesha / chosen Deity -->
+            <img src="https://img.icons8.com/color/144/ganesha.png" alt="God Image" class="god-img">
+            <p class="welcome-title">Welcome Greetings</p>
+            <p class="details-text" style="font-style: italic;">"With divine blessings of the Almighty, <br>we cordially invite you to celebrate the marriage of"</p>
+            <div class="divider"></div>
+            <h1 class="main-names">Vignesh<br><span style="font-size: 1.8rem; font-family: var(--font-serif); color:#444;">&</span>Saranya</h1>
+            <div class="divider"></div>
+            <p class="details-text">Please turn the page to meet the Groom and Bride.</p>
+        </div>
+
+        <!-- PAGE 2: GROOM DETAILS -->
+        <div class="invitation-page" id="page-2">
+            <!-- Replace with Groom Photo -->
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400&auto=format&fit=cover" alt="M.K. Vignesh" class="profile-img">
+            <h2 class="page-heading">M.K. Vignesh</h2>
+            <p class="details-text" style="font-style: italic; color: var(--gold-accent);">The Groom</p>
+            <div class="divider"></div>
+            <h3 class="sub-heading">Family Details</h3>
+            <p class="details-text"><strong>Parents:</strong> Mr. M. Kumar & Mrs. K. Sunitha</p>
+            <p class="details-text"><strong>Grandparents:</strong> Late Mr. R. Marimuthu & Mrs. M. Devaki</p>
+            <p class="details-text">Paternal family residing in Vellore, Tamil Nadu.</p>
+        </div>
+
+        <!-- PAGE 3: BRIDE DETAILS -->
+        <div class="invitation-page" id="page-3">
+            <!-- Replace with Bride Photo -->
+            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de215f?q=80&w=400&auto=format&fit=cover" alt="Saranya" class="profile-img">
+            <h2 class="page-heading">Saranya</h2>
+            <p class="details-text" style="font-style: italic; color: var(--gold-accent);">The Bride</p>
+            <div class="divider"></div>
+            <h3 class="sub-heading">Family Details</h3>
+            <p class="details-text"><strong>Parents:</strong> Mr. P. Saravanan & Mrs. S. Lakshmi</p>
+            <p class="details-text"><strong>Brother:</strong> Master S. Gautham</p>
+            <p class="details-text">Maternal family welcoming you warm-heartedly.</p>
+        </div>
+
+        <!-- PAGE 4: VENUE & NAVIGATION -->
+        <div class="invitation-page" id="page-4">
+            <h2 class="page-heading">The Venue</h2>
+            <div class="divider"></div>
+            <p class="sub-heading">Wedding Hall</p>
+            <h3 class="hall-name">JPM Mahal Vellore</h3>
+            <div class="divider"></div>
+            <p class="details-text" style="padding: 0 10px; max-width: 340px;">
+                JP Rd, Thendral Nagar, Sathuvachari, Vellore, Tamil Nadu 632009
+            </p>
+            <!-- Replace URL below inside href="" with your actual copied live share link from Google Maps -->
+            <a href="https://maps.google.com" target="_blank" class="map-link-btn">
+                📍 Open Google Maps Route
+            </a>
+        </div>
+
+        <!-- PAGE 5: DATES & TIMINGS -->
+        <div class="invitation-page" id="page-5">
+            <h2 class="page-heading">Event Schedule</h2>
+            <div class="divider"></div>
+            
+            <div class="event-box">
+                <h3 class="sub-heading" style="margin-top:0; color: var(--gold-accent);">Wedding Reception</h3>
+                <p class="details-text"><strong>16th Sep 2026</strong></p>
+                <p class="details-text">6:00 PM onwards</p>
+            </div>
+
+            <div class="event-box">
+                <h3 class="sub-heading" style="margin-top:0; color: var(--gold-accent);">Muhurtham / Wedding</h3>
+                <p class="details-text"><strong>17th Sep 2026</strong></p>
+                <p class="details-text">7:00 AM onwards</p>
+            </div>
+        </div>
+
+        <!-- PAGE 6: THANK YOU -->
+        <div class="invitation-page" id="page-6">
+            <h2 class="main-names" style="font-size: 4.5rem; margin-top: 40px;">Thank You</h2>
+            <div class="divider"></div>
+            <p class="details-text" style="font-size: 1.4rem; font-style: italic;">
+                "Your presence and blessings mean everything to us as we begin this new beautiful chapter."
+            </p>
+            <div class="divider"></div>
+            <p class="sub-heading">— Bless the Couple —</p>
+            <p class="details-text" style="font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;">#VigneshWedsSaranya</p>
+        </div>
+
+        <!-- BOTTOM CONTROLS (Static across all pages) -->
+        <div class="btn-container">
+            <button class="nav-btn secondary" id="prevBtn" onclick="changePage(-1)" style="visibility: hidden;">Back</button>
+            <span class="page-number" id="pageIdx">Page 1 of 6</span>
+            <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Next</button>
+        </div>
+
+    </div>
+
+    <!-- PAGE TRANSITION SCRIPT -->
+    <script>
+        let currentPage = 1;
+        const totalPages = 6;
+
+        function changePage(direction) {
+            // Target the safe current page index bounds
+            let newPage = currentPage + direction;
+            if (newPage < 1 || newPage > totalPages) return;
+
+            // Hide old active page
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            
+            // Apply step index update
+            currentPage = newPage;
+            
+            // Display targeted page
+            document.getElementById(`page-${currentPage}`).classList.add('active');
+
+            // Handle UI tracking elements 
+            document.getElementById('pageIdx').innerText = `Page ${currentPage} of ${totalPages}`;
+            
+            // Handle control button visibility constraints cleanly
+            document.getElementById('prevBtn').style.visibility = (currentPage === 1) ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').style.visibility = (currentPage === totalPages) ? 'hidden' : 'visible';
+        }
+    </script>
+</body>
+</html>

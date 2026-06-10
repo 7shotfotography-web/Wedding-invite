@@ -1,0 +1,76 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* EDIT BACKGROUND: Replace 'wedding-bg.jpg' with your image path or a color hex like #fff5f5 */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('wedding-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.invitation-card {
+    background: rgba(255, 255, 255, 0.92); /* Semi-transparent white card */
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+}
+
+/* EDIT FONTS: Change font-family, size, or color here */
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #b38867; /* Elegant gold/bronze tone */
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.details {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.venue-section h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Button Styling */
+.map-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #b38867;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(179, 136, 103, 0.4);
+}
+
+/* Button Hover Effect */
+.map-btn:hover {
+    background-color: #966f52;
+    transform: translateY(-2px);
+}
